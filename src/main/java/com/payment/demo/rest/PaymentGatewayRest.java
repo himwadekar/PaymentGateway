@@ -1,6 +1,8 @@
 package com.payment.demo.rest;
 
 import com.payment.demo.model.ExceptionResponse;
+import com.payment.demo.model.MerchantBank;
+import com.payment.demo.wrapper.v1.MerchantResponseWrapper;
 import com.payment.demo.wrapper.v1.PaymentResponseWrapper;
 import com.paypal.base.rest.PayPalRESTException;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,7 +17,7 @@ public interface PaymentGatewayRest {
 
     @PostMapping(path = "/pay")
     @Operation(
-            description = "Get onboarding status of the artifacts",
+            description = "Process Payment",
             responses = {
                     @ApiResponse(
                             responseCode = "201",
@@ -54,9 +56,36 @@ public interface PaymentGatewayRest {
                     )
             }
     )
-    public PaymentResponseWrapper executeTransaction(@RequestParam(name = "price", defaultValue = "0.0") Double amount,
+    public PaymentResponseWrapper executeTransaction(@RequestParam(name = "amount", defaultValue = "0.0") Double amount,
                                                      @RequestParam(name = "cardNumber", defaultValue = "") String cardNumber,
                                                      @RequestParam(name = "cvv", defaultValue = "") String cvv,
                                                      @RequestParam(name = "merchantId", defaultValue = "") String merchantId
-                                                     ) throws Exception;
+    ) throws Exception;
+
+
+    @GetMapping(path = "/getAccountDetails")
+    @Operation(
+            description = "Get Account Details",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Details Fetched successfully",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = MerchantResponseWrapper.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Not Found",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = ExceptionResponse.class),
+                                    examples = @ExampleObject(value = "{\"error\" : {\"code\" : 401, \"message\" : \"Unauthorized\", \"status\" : \"\"}}")
+                            )
+                    )
+            }
+    )
+    public MerchantResponseWrapper getAccountDetails(@RequestParam(name = "merchantId", defaultValue = "") String merchantId
+    ) throws Exception;
 }
