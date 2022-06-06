@@ -60,6 +60,20 @@ mvn -version
 
 ### Setting up Project
 
+#### Database
+- Prerequisite : Docker required.
+- Run
+```bash
+ docker run --name payments-db -e MYSQL_ROOT_PASSWORD=admin -p 3306:3306 -d mysql:8.0 
+```
+- Populate the db: 
+- Username: root 
+- Password: admin
+```bash
+docker exec -it payments-db /bin/bash 
+mysql -u root -p 
+ ```
+- #### Run the queries in db-dump.sql at location src/main/resources/utilities/db-dump.sql
 - Clone the repo.
 - From the root folder run the below command to download all the required dependencies.
 ```bash
@@ -73,3 +87,13 @@ java -jar target/payment-gateway-0.0.1.jar --spring.config.location=src/main/res
 
 ### Accessing the Swagger UI
 - Click [here](http://localhost:8082/docs) to access the Swagger UI.
+
+
+### Data to use:
+
+- The merchant id is fixed : 1191f989-0390-45ab-bd54-1cf312ad1b4e
+
+| FirstName     | LastName      | City   
+| ------------- | ------------- | --------    |
+| `John`        | Test1         | `NewYork`   |
+| `Bob`         | Test2         | `Toronto`   |
