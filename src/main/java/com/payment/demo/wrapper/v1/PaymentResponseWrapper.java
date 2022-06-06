@@ -16,6 +16,7 @@ public class PaymentResponseWrapper {
     private String transaction_id;
     private String transaction_status;
     private String description;
+    private String balance;
 }
 
 

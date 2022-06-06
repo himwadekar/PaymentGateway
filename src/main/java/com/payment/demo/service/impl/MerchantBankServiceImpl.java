@@ -1,16 +1,15 @@
 package com.payment.demo.service.impl;
 
 import com.payment.demo.dao.MerchantBankDao;
-import com.payment.demo.dao.impl.MerchantBankDaoImpl;
 import com.payment.demo.model.MerchantBank;
 import com.payment.demo.service.CustomerBankService;
 import com.payment.demo.service.MerchantBankService;
+import com.payment.demo.wrapper.v1.MerchantResponseWrapper;
 import com.payment.demo.wrapper.v1.PaymentResponseWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.UUID;
 
 @Service("MerchantBankServiceImpl")
@@ -57,6 +56,8 @@ public class MerchantBankServiceImpl implements MerchantBankService {
             PaymentResponseWrapper response = new PaymentResponseWrapper();
             response.setTransaction_status("Success");
             response.setTransaction_id(transaction_id);
+            response.setBalance(merchantDetails.getBalance().toString());
+
             response.setDescription("Order Placed Successfully");
             return response;
         }
@@ -66,6 +67,26 @@ public class MerchantBankServiceImpl implements MerchantBankService {
             response.setTransaction_id(transaction_id);
             response.setDescription("Payment Failed");
         }
+        return null;
+    }
+
+    @Override
+    public MerchantResponseWrapper getPaymentDetails(String merchantId){
+
+        try {
+            MerchantResponseWrapper merchantResponseWrapper = new MerchantResponseWrapper();
+            log.info("Merchant_id : {}", merchantId);
+            MerchantBank details = merchantBankDao.getMerchantDetails(merchantId);
+            merchantResponseWrapper.setMerchant_Id(details.getMerchant_id());
+            merchantResponseWrapper.setBalance(details.getBalance().toString());
+            merchantResponseWrapper.setTransaction_Id(details.getTransaction_id());
+
+            return merchantResponseWrapper;
+        }
+        catch(Exception e){
+            log.info("Exception caught while fetching merchant payment details: {}", e.getMessage());
+        }
+
         return null;
     }
 }

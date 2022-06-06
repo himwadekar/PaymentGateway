@@ -2,6 +2,7 @@ package com.payment.demo.rest.impl;
 
 import com.payment.demo.rest.PaymentGatewayRest;
 import com.payment.demo.service.PaymentGatewayService;
+import com.payment.demo.wrapper.v1.MerchantResponseWrapper;
 import com.payment.demo.wrapper.v1.PaymentResponseWrapper;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Order;
@@ -47,5 +48,11 @@ public class PaymentGatewayRestImpl implements PaymentGatewayRest {
         paymentResponseWrapper.setTransaction_status("Error");
         paymentResponseWrapper.setDescription("Server Encountered an Error.");
         return paymentResponseWrapper;
+    }
+
+    @Override
+    @GetMapping(path = "/getAccountDetails")
+    public MerchantResponseWrapper getAccountDetails(String merchantId){
+        return paymentGatewayService.getAccountDetails(merchantId);
     }
 }

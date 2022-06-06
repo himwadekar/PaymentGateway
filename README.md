@@ -3,8 +3,8 @@
 Created a basic Payment gateway.
 
 ## Introduction
-This project is created with Java Spring boot and is based on the general working principle of a payment gateway. 
-An API Endpoint is exposed to accept the payment details. 
+This project is created with Java Spring boot and is based on the general working principle of a payment gateway.
+An API Endpoint is exposed to accept the payment details.
 
 #### Endpoint : ​/onboardingManagement​/api​/v1​/makePayment​/pay
 
@@ -13,6 +13,11 @@ An API Endpoint is exposed to accept the payment details.
 - `cardNumber` (The Credit Card number).
 - `cvv` (cvv for the Credit Card).
 - `merchantId` (The Merchant's id to whom the payment is supposed to be made).
+
+#### Endpoint : ​/onboardingManagement​/api​/v1​/makePayment​/getAccountDetails
+#### Details taken into consideration are:
+- `merchantId` (The Merchant's id to whom the payment is supposed to be made).
+
 
 #### Database Details:
 
@@ -36,7 +41,7 @@ An API Endpoint is exposed to accept the payment details.
 - Using PCI DSS compliance standards for storing card details.
 - Using complete card details like Name on the Card and Expiry Date.
 - Instead of using the merchant Id we can use merchant name and create a mapping in the Merchant table where Name corresponds to the ID.
-  
+
 
 
 ## Installation
@@ -44,7 +49,7 @@ An API Endpoint is exposed to accept the payment details.
 ### Setting up Java JDK
 
 - Java version required 15.x
-- Open a new terminal and run 
+- Open a new terminal and run
 ```bash
 java -version
 ```
@@ -67,8 +72,8 @@ mvn -version
 ```bash
  docker run --name payments-db -e MYSQL_ROOT_PASSWORD=admin -p 3306:3306 -d mysql:8.0 
 ```
-- Populate the db: 
-- Username: root 
+- Populate the db:
+- Username: root
 - Password: admin
 ```bash
 docker exec -it payments-db /bin/bash 
@@ -94,7 +99,7 @@ java -jar target/payment-gateway-0.0.1.jar --spring.config.location=src/main/res
 
 - The merchant id is fixed : `1191f989-0390-45ab-bd54-1cf312ad1b4e`
 
-| Card Number         | cvv  | Customer Id                            | Balance   
+| Card Number         | cvv  | Customer Id                            | Balance
 | ------------------- | ---- | -------------------------------------- | ----------
 | `6227172066964207`  | 324  | `f1c9a865-2b64-46fb-9286-c1011aa50b29` | 10000
 | `5019216085126571`  | 244  | `2bcd59ea-f4b3-47a0-b714-d82da5f1a904` | 50000

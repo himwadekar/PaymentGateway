@@ -26,7 +26,7 @@ public class CustomerBank{
     @Column(name = "CVV", nullable = false, columnDefinition = "INT")
     private int cvv;
 
-    @Column(name = "BANALCE", columnDefinition = "DOUBLE")
+    @Column(name = "BALANCE", columnDefinition = "DOUBLE")
     private Double balance;
 
 }
