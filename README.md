@@ -9,27 +9,28 @@ An API Endpoint is exposed to accept the payment details.
 #### Endpoint : ​/onboardingManagement​/api​/v1​/makePayment​/pay
 
 #### Details taken into consideration are:
-- amount (The total amount to be processed).
-- cardNumber (The Credit Card number).
-- cvv (cvv for the Credit Card).
-- merchantId (The Merchant's id to whom the payment is supposed to be made).
+- `amount` (The total amount to be processed).
+- `cardNumber` (The Credit Card number).
+- `cvv` (cvv for the Credit Card).
+- `merchantId` (The Merchant's id to whom the payment is supposed to be made).
 
 #### Database Details:
 
 
 
 
-#### Name: payment_db
+#### Name: `payment_db`
 
 #### Table Names:
 
-- MERCHANT_BANK(MERCHANT_ID, TRANSACTION_ID, BALANCE)
-- CUSTOMER_BANK(CUSTOMER_ID, CARD_NUMBER, CVV, BALANCE)
+- `MERCHANT_BANK`(MERCHANT_ID, TRANSACTION_ID, BALANCE)
+- `CUSTOMER_BANK`(CUSTOMER_ID, CARD_NUMBER, CVV, BALANCE)
 
 
 ### Note:
 - The card details need to be stored based on PCI DSS compliance standards but for this demo, the card details are stored in the DB in string format.
 - The Card expiration date is not taken into consideration.
+- Currency is not taken into Consideration.
 #### Improvements that can be done:
 - Adding UI.
 - Using PCI DSS compliance standards for storing card details.
@@ -61,7 +62,7 @@ mvn -version
 ### Setting up Project
 
 #### Database
-- Prerequisite : Docker required.
+- `Prerequisite : Docker required.`
 - Run
 ```bash
  docker run --name payments-db -e MYSQL_ROOT_PASSWORD=admin -p 3306:3306 -d mysql:8.0 
@@ -91,9 +92,10 @@ java -jar target/payment-gateway-0.0.1.jar --spring.config.location=src/main/res
 
 ### Data to use:
 
-- The merchant id is fixed : 1191f989-0390-45ab-bd54-1cf312ad1b4e
+- The merchant id is fixed : `1191f989-0390-45ab-bd54-1cf312ad1b4e`
 
-| FirstName     | LastName      | City   
-| ------------- | ------------- | --------    |
-| `John`        | Test1         | `NewYork`   |
-| `Bob`         | Test2         | `Toronto`   |
+| Card Number         | cvv  | Customer Id                            | Balance   
+| ------------------- | ---- | -------------------------------------- | ----------
+| `6227172066964207`  | 324  | `f1c9a865-2b64-46fb-9286-c1011aa50b29` | 10000
+| `5019216085126571`  | 244  | `2bcd59ea-f4b3-47a0-b714-d82da5f1a904` | 50000
+| `6361695649657969`  | 789  | `9181536c-69fd-4e71-abc2-45dc89360fa0` | 2500
