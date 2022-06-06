@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  # MySQL
+  db:
+    image: mysql
+    container_name: payments
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: payment-gateway
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
